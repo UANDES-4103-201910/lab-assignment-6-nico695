@@ -25,13 +25,27 @@ class UsersController < ApplicationController
   # POST /users
   # POST /users.json
   def create
-    #complete this method
+	user = User.new(user_params)
+	if @user.save
+    	flash[:notice] = "Created succesfully"
+	    redirect_to 'http://localhost:3000/'
+	else
+		flash[:error] = "Something is wrong while validating"
+	    render :new
+  	end
   end
 
   # PATCH/PUT /users/1
   # PATCH/PUT /users/1.json
   def update
-    #complete this method
+    @user = User.find(params[:id])
+  	if @user.update(user_params)
+  		flash[:notice] = "Updated succesfully"
+	    redirect_to 'http://localhost:3000/'
+	else
+		flash[:error] = "Something went wrong"
+	    redirect_to 'http://localhost:3000/'
+  	end
   end
 
   # DELETE /users/1
