@@ -25,14 +25,14 @@ class UsersController < ApplicationController
   # POST /users
   # POST /users.json
   def create
-	user = User.new(user_params)
-	if @user.save
-    	flash[:notice] = "Created succesfully"
-	    redirect_to 'http://localhost:3000/'
-	else
-		flash[:error] = "Something is wrong while validating"
-	    render :new
-  	end
+  	user = User.new(user_params)
+  	if @user.save
+      	flash[:notice] = "Created succesfully"
+  	    redirect_to @user
+  	else
+  	   flash[:error] = "Something is wrong while validating"
+  	   render :new
+    end
   end
 
   # PATCH/PUT /users/1
@@ -42,16 +42,20 @@ class UsersController < ApplicationController
   	if @user.update(user_params)
   		flash[:notice] = "Updated succesfully"
 	    redirect_to 'http://localhost:3000/'
-	else
-		flash[:error] = "Something went wrong"
-	    redirect_to 'http://localhost:3000/'
+    else
+		  flash[:error] = "Something went wrong"
+      redirect_to :edit
   	end
   end
 
   # DELETE /users/1
   # DELETE /users/1.json
   def destroy
-    #complete this method
+    user = User.find(params[:id])
+    if @user.destroy(user_params)
+      flash[:notice] = "Destroyed succesfully"
+      redirect_to @user
+    end
   end
 
   private

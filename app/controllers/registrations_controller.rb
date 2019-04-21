@@ -6,10 +6,10 @@ class RegistrationsController < ApplicationController
 	def create
 		@user = User.new(registration_params)
 		if @user.save(registration_params)
-	    	flash[:notice] = "User was succesfully created"
+	    	flash[:notice] = 'User was succesfully created'
 			redirect_to 'http://localhost:3000/'
 		else
-			flash[:error] = "Some parameters were wrongly typed in"
+			flash[:error] = 'Something went wrong'
 			render :new
 	  	end
 	end
